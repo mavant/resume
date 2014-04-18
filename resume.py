@@ -87,6 +87,12 @@ def tex(lines, contact_lines, *args):
         return re.sub(pattern, r"\1\2%s\%d" % (repl, num_groups + 3), string,
                       flags=flags, **kwargs)
 
+    # Allows inline right-alignment
+    def right_align(l):
+        return re.sub(r"\|\|", r"\\hfill", l)
+    lines = map(right_align, lines)
+
+
     # pandoc doesn't seem to support markdown inside latex blocks, so we're
     # just going to hardcode the two most common link formats for now so people
     # can put links in their contact info
